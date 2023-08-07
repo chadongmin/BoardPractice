@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.myportfolio.web">
+	<logger name="com.myportfolio.board">
 		<level value="info" />
 	</logger>
 	
