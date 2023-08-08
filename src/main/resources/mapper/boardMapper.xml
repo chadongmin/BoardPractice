@@ -4,5 +4,25 @@
 
 <mapper namespace="com.myportfolio.board.dao.BoardMapper">
 
+    <select id="select" parameterType="int" resultType="BoardDto">
+        select bno,
+               title,
+               content,
+               writer,
+               view_cnt,
+               comment_cnt,
+               reg_date,
+               up_date
+        from board
+        where bno = #{bno};
+    </select>
+
+    <insert id="insert" parameterType="BoardDto">
+        INSERT INTO board
+            (title, content, writer)
+        VALUES
+            (#{title}, #{content}, #{writer})
+    </insert>
+
 
 </mapper>
