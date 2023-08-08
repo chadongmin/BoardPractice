@@ -17,4 +17,8 @@ public interface BoardService {
     int modify(BoardDto boardDto) throws Exception;
 
     int getCount() throws Exception;
+
+    List<BoardDto> getList() throws Exception;
+
+    List<BoardDto> getPage(Map map) throws Exception;
 }

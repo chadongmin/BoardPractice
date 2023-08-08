@@ -23,8 +23,12 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public List<BoardDto> selectAll() throws Exception{
         return session.selectList(namespace+"selectAll");
-
     }
+    @Override
+    public List<BoardDto> selectPage(Map map) throws Exception {
+        return session.selectList(namespace+"selectPage", map);
+    } // List<E> selectList(String statement, Object parameter)
+
 
     @Override
     public int insert(BoardDto boardDto) throws Exception{

@@ -1,6 +1,7 @@
 package com.myportfolio.board.controller;
 
 
+import com.myportfolio.board.domain.BoardDto;
 import com.myportfolio.board.service.BoardService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -19,17 +20,25 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request) {
-//        if(!loginCheck(request))
-//            return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+    public String list(Integer pageSize, Integer page,HttpServletRequest request,Model m) {
+
+        if (page==null) page=1;
+        if (pageSize==null)pageSize=10;
+        try {
+            Map map = new HashMap();
+            map.put("offset", (page-1)*pageSize);
+            map.put("pageSize", pageSize);
+
+            List<BoardDto> list = boardService.getPage(map);
+
+
+            m.addAttribute("list",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
 
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
-//
-//    private boolean loginCheck(HttpServletRequest request) {
-//        // 1. 세션을 얻어서
-//        HttpSession session = request.getSession();
-//        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-//        return session.getAttribute("id")!=null;
-//    }
+
 }
