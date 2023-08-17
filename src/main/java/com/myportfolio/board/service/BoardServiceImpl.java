@@ -5,6 +5,9 @@ import com.myportfolio.board.domain.BoardDto;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class BoardServiceImpl implements BoardService {
     @Autowired
@@ -31,6 +34,14 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int getCount() throws Exception{
         return boardDao.count();
+    }
+    @Override
+    public List<BoardDto> getList() throws Exception {
+        return boardDao.selectAll();
+    }
+    @Override
+    public List<BoardDto> getPage(Map map) throws Exception {
+        return boardDao.selectPage(map);
     }
 
 

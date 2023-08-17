@@ -21,6 +21,40 @@ public class BoardDaoImplTest {
     private BoardDao boardDao;
 
     @Test
+    public void selectPageTest() throws Exception {
+        boardDao.deleteAll();
+
+        for (int i = 1; i <= 250; i++) {
+            BoardDto boardDto = new BoardDto(""+i, "no content"+i, "asdf");
+            boardDao.insert(boardDto);
+        }
+
+        Map map = new HashMap();
+        map.put("offset", 0);
+        map.put("pageSize", 3);
+
+        List<BoardDto> list = boardDao.selectPage(map);
+        assertTrue(list.get(0).getTitle().equals("10"));
+        assertTrue(list.get(1).getTitle().equals("9"));
+        assertTrue(list.get(2).getTitle().equals("8"));
+
+        map = new HashMap();
+        map.put("offset", 0);
+        map.put("pageSize", 1);
+
+        list = boardDao.selectPage(map);
+        assertTrue(list.get(0).getTitle().equals("10"));
+
+        map = new HashMap();
+        map.put("offset", 7);
+        map.put("pageSize", 3);
+
+        list = boardDao.selectPage(map);
+        assertTrue(list.get(0).getTitle().equals("3"));
+        assertTrue(list.get(1).getTitle().equals("2"));
+        assertTrue(list.get(2).getTitle().equals("1"));
+    }
+    @Test
     public void countTest() throws Exception{
         int rowCnt = boardDao.count();
         System.out.println("rowCnt = " + rowCnt);
@@ -34,7 +68,7 @@ public class BoardDaoImplTest {
         assertTrue(boardDao.insert(boardDto)==1);
         System.out.println(boardDto);
 
-        Integer bno = boardDao.selectAll().get(0).getBno();
+            Integer bno = boardDao.selectAll().get(0).getBno();
         System.out.println("bno = " + bno);
         boardDto.setBno(bno);
         boardDto.setTitle("aassa title");
