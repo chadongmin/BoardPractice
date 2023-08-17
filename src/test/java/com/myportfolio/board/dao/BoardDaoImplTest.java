@@ -24,7 +24,7 @@ public class BoardDaoImplTest {
     public void selectPageTest() throws Exception {
         boardDao.deleteAll();
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 250; i++) {
             BoardDto boardDto = new BoardDto(""+i, "no content"+i, "asdf");
             boardDao.insert(boardDto);
         }
@@ -68,7 +68,7 @@ public class BoardDaoImplTest {
         assertTrue(boardDao.insert(boardDto)==1);
         System.out.println(boardDto);
 
-        Integer bno = boardDao.selectAll().get(0).getBno();
+            Integer bno = boardDao.selectAll().get(0).getBno();
         System.out.println("bno = " + bno);
         boardDto.setBno(bno);
         boardDto.setTitle("aassa title");
